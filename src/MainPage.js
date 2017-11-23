@@ -46,30 +46,26 @@ class MainPage extends Component {
 
   findNearBy(location,activity){
     let bod
+  let  url = 'https://api.foursquare.com/v2/venues/search'
     console.log("I got called inside findNearBy ",location,activity);
-    request({
-  url: 'https://api.foursquare.com/v2/venues/search',
-  method: 'GET',
-  qs: {
+    axios.get(url,{
+  params:{
+
+
     client_id: 'NJO25SYKFJCONZVDEUEWJHOCVY0KSDQPIAOWK4P1E3TQ1NQF',
     client_secret: 'RHVV3XPZTUJYL10U54Y2LJK532T52GDZKP3X3NHDDI2V0PBR',
     ll: location,
     query: activity,
     v: '20170801',
-    limit: 1
-  }
-}, function(err, res, body) {
-  if (err) {
-    console.error(err);
-  } else {
+    limit: 3
 
-  bod=JSON.parse(body);
-
-    //this.setState({text:body})
-  }
+}
+}).then(response => {
+  //let body = JSON.parse(response)
+console.log(response.data.response.venues);
 });
 
-console.log(bod.response.venues);
+
   };
 
 
