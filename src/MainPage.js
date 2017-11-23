@@ -4,6 +4,7 @@ import './App.css';
 import SearchBar from './SearchBar';
 var location = [];
 var request = require("request");
+const axios = require("axios");
 
 
 class MainPage extends Component {
@@ -17,50 +18,37 @@ class MainPage extends Component {
 
   FindByKeyWord (place,activity,req, res, next) {
 
-    let loc,lat,lng
-
-      var API_KEY = "AIzaSyAF3uz9TVGZ-PqhRXnRqFl4QR4Q32eaXzs";
-      var BASE_URL = "https://maps.googleapis.com/maps/api/geocode/json?address=";
-      console.log("you selected ",place);
-      var address = place;
-
-      var url = BASE_URL + address + "&key=" + API_KEY;
-
-      request(url, function (error, response, body) {
-          if (!error && response.statusCode == 200) {
-            let myAddress = []
-            //const something = body[1]
-            //let obj = response.body
-
-            // console.log("what",body.length); //I get the response here!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-          let obj=   JSON.parse(body)
-          let geometry = obj.results[0].geometry;
-          lat = geometry.location.lat.toString()
-          lat = lat.concat(',')
-          lng = geometry.location.lng.toString()
-          loc = lat.concat(lng)
-          location[0] = loc
-          console.log("hhh",loc);
-          //this.findNearBy.bind(this,loc,activity)
-
-        }
-          else {
-              // The request failed, handle it
-              console.log("uh oh");
-          }
-
-      });
-
-      //this.setState({loc:location})
+    const url =
+    "https://maps.googleapis.com/maps/api/geocode/json?address="+place;
+  axios
+    .get(url)
+    .then(response => {
+      console.log(
+        `City: ${response.data.results[0].formatted_address} -`,
+        `Latitude: ${response.data.results[0].geometry.location.lat} -`,
+        `Longitude: ${response.data.results[0].geometry.location.lng}`
+      );
+      let lat = response.data.results[0].geometry.location.lat.toString()
+      let lng = response.data.results[0].geometry.location.lng.toString()
+      let location1 = lat+","+lng
+    //  location1.concat(lng)
+      console.log("whyyy",location1);
+      this.setState({loca:location1})
+      this.findNearBy(this.state.loca,activity)
+    })
+    .catch(error => {
+      console.log(error);
+    });
 
   };
 
 
 
   findNearBy(location,activity){
-    console.log("I got called");
+    let bod
+    console.log("I got called inside findNearBy ",location,activity);
     request({
-  url: 'https://api.foursquare.com/v2/venues/explore',
+  url: 'https://api.foursquare.com/v2/venues/search',
   method: 'GET',
   qs: {
     client_id: 'NJO25SYKFJCONZVDEUEWJHOCVY0KSDQPIAOWK4P1E3TQ1NQF',
@@ -74,21 +62,23 @@ class MainPage extends Component {
   if (err) {
     console.error(err);
   } else {
-    console.log(body);
-  //  bod=body;
+
+  bod=JSON.parse(body);
+
     //this.setState({text:body})
   }
 });
 
-
+console.log(bod.response.venues);
   };
 
 
 
  setPlace(place,activity){
-   this.setState({place:place})
+   //this.setState({place:place})
    console.log("what ",place, activity);
     this.FindByKeyWord(place,activity);
+    //this.props.getInfo(this.state.loca)
     //console.log("what is the location I got",this.state.loc);
     //console.log("this",loc);
   //this.findNearBy(location,activity)

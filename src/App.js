@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import SearchBar from './SearchBar';
+import MainPage from './MainPage'
 var location = [];
 var request = require("request");
 
@@ -85,10 +86,8 @@ class App extends Component {
 
 
 
- setPlace(place,activity){
-   this.setState({place:place})
-   console.log("what ",place, activity);
-    this.FindByKeyWord(place,activity);
+ callFunc(info){
+console.log("got this from my sweetie pie child",info);
     //console.log("what is the location I got",this.state.loc);
     //console.log("this",loc);
   //this.findNearBy(location,activity)
@@ -99,7 +98,7 @@ class App extends Component {
     return (
       <div className="App">
 
-        <SearchBar handleClick = {this.setPlace.bind(this)}/>
+        <MainPage getInfo = {this.callFunc.bind(this)} loca= {""}/>
 
       </div>
     );
