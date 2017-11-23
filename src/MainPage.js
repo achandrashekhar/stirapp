@@ -6,7 +6,7 @@ var location = [];
 var request = require("request");
 
 
-class App extends Component {
+class MainPage extends Component {
 
   constructor(props){
     super(props)
@@ -106,4 +106,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default MainPage;
