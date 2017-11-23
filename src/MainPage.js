@@ -62,7 +62,8 @@ class MainPage extends Component {
 }
 }).then(response => {
   //let body = JSON.parse(response)
-console.log(response.data.response.venues);
+//console.log(response.data.response.venues);
+this.props.getInfo(response.data.response.venues,response.data.response.venues[0].id,"results")
 });
 
 
@@ -83,7 +84,7 @@ console.log(response.data.response.venues);
 
   render() {
     return (
-      <div className="App">
+      <div>
 
         <SearchBar handleClick = {this.setPlace.bind(this)}/>
 
