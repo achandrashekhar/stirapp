@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 var request = require("request");
 const axios = require("axios");
 
-
+/*
+This component houses the search box
+*/
 class SearchBar extends Component {
 
   constructor(props){

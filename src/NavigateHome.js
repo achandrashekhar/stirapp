@@ -6,7 +6,9 @@ var photo = [];
 var request = require("request");
 const axios = require("axios");
 
-
+/*
+This component routes back to the home page
+*/
 class NavigateHome extends Component {
 
   constructor(props){

@@ -6,7 +6,9 @@ var photo = [];
 var request = require("request");
 const axios = require("axios");
 
-
+/*
+This component displays all the search results
+*/
 class SearchResult extends Component {
 
   constructor(props){

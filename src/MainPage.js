@@ -6,7 +6,9 @@ var location = [];
 var request = require("request");
 const axios = require("axios");
 
-
+/*
+This component makes all the necessary GET requests to Google and FourSquare
+*/
 class MainPage extends Component {
 
   constructor(props){
@@ -15,7 +17,9 @@ class MainPage extends Component {
   }
 
 
-
+/*
+  This function makes a GET request to the Google Maps geocode API to get the latitude and longitude of a selected neighbourhood
+*/
   FindByKeyWord (place,activity,req, res, next) {
 
     const url =
@@ -42,7 +46,9 @@ class MainPage extends Component {
 
   };
 
-
+/*
+This function makes a GET request to the foursquare API and gets a list of suggestions - I have limited the number to 10.
+*/
 
   findNearBy(location,activity){
     let bod
