@@ -57,17 +57,53 @@ class MainPage extends Component {
     ll: location,
     query: activity,
     v: '20170801',
-    limit: 5
+    limit: 10
 
 }
 }).then(response => {
   //let body = JSON.parse(response)
 console.log(response.data.response.groups[0].items);
+//let photosArray = this.getPhotoURL(response.data.response.groups[0].items)
+//console.log(photosArray);
 this.props.getInfo(response.data.response.groups[0].items,"results")
 });
 
 
   };
+
+  getPhotoURL(venues){
+    let photosArray = {
+      1:"",
+      2:"",
+      3:""
+    }
+    Object.keys(venues).map(idx => {
+      console.log(venues[idx].venue.id);
+    let  url = 'https://api.foursquare.com/v2/venues/'+venues[idx].venue.id+'/photos'
+    console.log(url);
+      axios.get(url,{
+    params:{
+      client_id: 'NJO25SYKFJCONZVDEUEWJHOCVY0KSDQPIAOWK4P1E3TQ1NQF',
+      client_secret: 'RHVV3XPZTUJYL10U54Y2LJK532T52GDZKP3X3NHDDI2V0PBR',
+      v: '20170801',
+      limit: 1,
+      offset:1
+  }
+  }).then(response => {
+    //let body = JSON.parse(response)
+  //console.log("photo response",response.data.response.photos.items[0]);
+  const URL = response.data.response.photos.items[0].prefix+'200x200'+response.data.response.photos.items[0].suffix
+  var element = {}
+  element.id = idx;
+element.url = URL;
+  photosArray[idx] = element
+  //console.log(URL);
+  });
+}
+)
+ return photosArray
+
+  }
 
 
 

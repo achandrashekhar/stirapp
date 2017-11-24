@@ -38,6 +38,7 @@ selectCity(place){
                   <a className="dropdown-item" onClick={this.selectCity.bind(this,"Nob Hill, San Francisco")}>Nob Hill</a>
                   <a className="dropdown-item" onClick={this.selectCity.bind(this,"Russian Hill, San Francisco")}>Russian Hill</a>
                   <a className="dropdown-item" onClick={this.selectCity.bind(this,"Polk Street, San Francisco")}>Polk Street</a>
+                  <a className="dropdown-item" onClick={this.selectCity.bind(this,"Richmond, San Francisco")}>Richmond</a>
                   </div>
                   </div>
 

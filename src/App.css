@@ -20,5 +20,32 @@
 .resultpage {
   position: absolute;
   top: 10%;
-  align: center;
+  padding: 1em;
+}
+
+.w-75 {
+    width: 75%!important;
+    padding: 1em;
+
+}
+
+.btn {
+  margin-bottom: 0.8em;
+}
+
+.form-control{
+  height: 2.5em;
+  width: 5em;
+}
+
+.intro{
+  right:10%;
+  font-family: fantasy;
+  font-size: 1.5rem;
+  justify-content:space-around;
+  padding:0.5em;
+}
+
+.btn {
+  background-color: #ad1b42;
 }

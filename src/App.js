@@ -4,6 +4,7 @@ import './App.css';
 import SearchBar from './SearchBar';
 import MainPage from './MainPage'
 import SearchResult from './SearchResult'
+import NavigateHome from './NavigateHome'
 var location = [];
 var request = require("request");
 
@@ -21,11 +22,15 @@ componentWillMount(){
 }
 
  callFunc(info,results){
-console.log("got this from my sweetie pie child",info);
+//console.log("got this from my sweetie pie child",info);
 this.setState({screenName:results,venues:info})
     //console.log("what is the location I got",this.state.loc);
     //console.log("this",loc);
   //this.findNearBy(location,activity)
+ }
+
+ navhome(search){
+   this.setState({screenName:search})
  }
 
 
@@ -33,7 +38,10 @@ this.setState({screenName:results,venues:info})
     if(this.state.screenName==="search"){
     return (
       <div className="App">
-
+        <div className="intro">
+        Explore SF neighbourhoods
+        <p>    try typing in "coffee" or "burger" </p>
+        </div>
         <MainPage getInfo = {this.callFunc.bind(this)} loca= {""}/>
 
       </div>
@@ -41,7 +49,9 @@ this.setState({screenName:results,venues:info})
     } else return(
       <div className="resultpage">
 
-        <SearchResult venue = {this.state.venues}/>
+      <NavigateHome navigatehome = {this.navhome.bind(this)}/>
+        <SearchResult venue = {this.state.venues} />
+
 
       </div>
     )

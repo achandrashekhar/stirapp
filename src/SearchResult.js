@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import SearchBar from './SearchBar';
-var location = [];
+var photo = [];
 var request = require("request");
 const axios = require("axios");
 
@@ -15,10 +15,13 @@ class SearchResult extends Component {
   }
 
   componentDidMount(){
-    console.log("got this from parent",this.props.venue);
+    console.log("got this from parent",this.props.photosArray);
+    //photo = this.props.photosArray
     //<a href="#" className="btn btn-primary">Button</a>
 
   }
+
+
 
 
   getMenu(venue){
@@ -31,6 +34,7 @@ class SearchResult extends Component {
 
   render(){
     return(
+
       Object.keys(this.props.venue).map((c,idx)=>{
           return(
             <div className="card w-75">
@@ -38,14 +42,15 @@ class SearchResult extends Component {
               <h3 className="card-title">{this.props.venue[idx].venue.name}</h3>
               <p className="card-text">Address: {this.props.venue[idx].venue.location.address}</p>
               <p className="card-text">{this.props.venue[idx].venue.hours.status}</p>
-              <p className="card-text">{this.getMenu(this.props.venue[idx])}</p>
+              <p className="card-text"><small class="text-muted">{this.getMenu(this.props.venue[idx])}</small></p>
+              <p className="card-text"><small class="text-muted"><a href={this.props.venue[idx].venue.url}>Website</a></small></p>
             </div>
           </div>
           )
   })
 )
-}
 
+}
 
 
 }
