@@ -3,6 +3,22 @@
   position: absolute;
     top: 25%;
     left: 40%;
-    
 
+
+}
+
+.result {
+  padding: 1em;
+}
+
+.resultlist {
+  padding-bottom: 0.5em;
+
+}
+
+
+.resultpage {
+  position: absolute;
+  top: 10%;
+  align: center;
 }

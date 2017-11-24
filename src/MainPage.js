@@ -46,7 +46,7 @@ class MainPage extends Component {
 
   findNearBy(location,activity){
     let bod
-  let  url = 'https://api.foursquare.com/v2/venues/search'
+  let  url = 'https://api.foursquare.com/v2/venues/explore'
     console.log("I got called inside findNearBy ",location,activity);
     axios.get(url,{
   params:{
@@ -57,13 +57,13 @@ class MainPage extends Component {
     ll: location,
     query: activity,
     v: '20170801',
-    limit: 3
+    limit: 5
 
 }
 }).then(response => {
   //let body = JSON.parse(response)
-//console.log(response.data.response.venues);
-this.props.getInfo(response.data.response.venues,response.data.response.venues[0].id,"results")
+console.log(response.data.response.groups[0].items);
+this.props.getInfo(response.data.response.groups[0].items,"results")
 });
 
 

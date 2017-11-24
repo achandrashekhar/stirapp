@@ -20,9 +20,9 @@ componentWillMount(){
   this.setState({screenName:"search"})
 }
 
- callFunc(info,id,results){
-console.log("got this from my sweetie pie child",info,id);
-this.setState({screenName:results})
+ callFunc(info,results){
+console.log("got this from my sweetie pie child",info);
+this.setState({screenName:results,venues:info})
     //console.log("what is the location I got",this.state.loc);
     //console.log("this",loc);
   //this.findNearBy(location,activity)
@@ -39,9 +39,9 @@ this.setState({screenName:results})
       </div>
       );
     } else return(
-      <div className="App">
+      <div className="resultpage">
 
-        <SearchResult getInfo = {this.callFunc.bind(this)} loca= {""}/>
+        <SearchResult venue = {this.state.venues}/>
 
       </div>
     )
