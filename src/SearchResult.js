@@ -34,21 +34,29 @@ class SearchResult extends Component {
     }
   }
 
+  getHours(idx){
+    if(this.props.venue[idx].venue.hours!=undefined)
+    return this.props.venue[idx].venue.hours.status
+    else return ""
+  }
+
   render(){
     return(
 
       Object.keys(this.props.venue).map((c,idx)=>{
+        if(this.props.venue!==undefined){
           return(
             <div className="card w-75">
               <div className="card-block">
               <h3 className="card-title">{this.props.venue[idx].venue.name}</h3>
               <p className="card-text">Address: {this.props.venue[idx].venue.location.address}</p>
-              <p className="card-text">{this.props.venue[idx].venue.hours.status}</p>
+              <p className="card-text">{this.getHours(idx)}</p>
               <p className="card-text"><small class="text-muted">{this.getMenu(this.props.venue[idx])}</small></p>
               <p className="card-text"><small class="text-muted"><a href={this.props.venue[idx].venue.url}>Website</a></small></p>
             </div>
           </div>
           )
+        }
   })
 )
 
