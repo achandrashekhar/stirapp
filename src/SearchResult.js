@@ -17,7 +17,7 @@ class SearchResult extends Component {
   }
 
   componentDidMount(){
-    console.log("got this from parent",this.props.photosArray);
+    console.log("got this from parent",this.props.photo);
     //photo = this.props.photosArray
     //<a href="#" className="btn btn-primary">Button</a>
 
@@ -48,6 +48,7 @@ class SearchResult extends Component {
           return(
             <div className="card w-75">
               <div className="card-block">
+               <img className="card-img-top" src={this.props.photo[idx.toString()]} alt={this.props.photo[idx]}/>
               <h3 className="card-title">{this.props.venue[idx].venue.name}</h3>
               <p className="card-text">Address: {this.props.venue[idx].venue.location.address}</p>
               <p className="card-text">{this.getHours(idx)}</p>

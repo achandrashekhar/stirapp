@@ -18,19 +18,20 @@ class App extends Component {
   }
 
 componentWillMount(){
-  this.setState({screenName:"search"})
+  this.setState({screenName:"search",photos:{}})
 }
 
- callFunc(info,results){
+ callFunc(info,results,photosArray){
 //console.log("got this from my sweetie pie child",info);
-this.setState({screenName:results,venues:info})
+console.log("what is this that I get",photosArray);
+this.setState({screenName:results,venues:info,photos:photosArray})
     //console.log("what is the location I got",this.state.loc);
     //console.log("this",loc);
   //this.findNearBy(location,activity)
  }
 
  navhome(search){
-   this.setState({screenName:search})
+   this.setState({screenName:search,photos:{}})
  }
 
 
@@ -47,11 +48,12 @@ this.setState({screenName:results,venues:info})
       </div>
       );
     } else return(
-      <div className="resultpage">
+      <div>
 
       <NavigateHome navigatehome = {this.navhome.bind(this)}/>
-        <SearchResult venue = {this.state.venues} />
-
+      <div className="resultpage">
+        <SearchResult venue = {this.state.venues} photo={this.state.photos}/>
+        </div>
 
       </div>
     )

@@ -21,10 +21,12 @@
   position: absolute;
   top: 10%;
   padding: 1em;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .w-75 {
-    width: 75%!important;
+    width: 25%!important;
     padding: 1em;
 
 }
@@ -48,4 +50,8 @@
 
 .btn {
   background-color: #ad1b42;
+}
+
+.card {
+  color:yellowgreen;
 }

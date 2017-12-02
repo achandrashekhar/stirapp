@@ -6,6 +6,10 @@ var location = [];
 var request = require("request");
 const axios = require("axios");
 
+let photosArray = {
+
+}
+
 /*
 This component makes all the necessary GET requests to Google and FourSquare
 */
@@ -15,6 +19,8 @@ class MainPage extends Component {
     super(props)
     this.setState({text:"",loc:[],loca:""})
   }
+
+
 
 
 /*
@@ -69,20 +75,16 @@ This function makes a GET request to the foursquare API and gets a list of sugge
 }).then(response => {
   //let body = JSON.parse(response)
 console.log(response.data.response.groups[0].items);
-//let photosArray = this.getPhotoURL(response.data.response.groups[0].items)
+this.getPhotoURL(response.data.response.groups[0].items)
 //console.log(photosArray);
-this.props.getInfo(response.data.response.groups[0].items,"results")
+this.props.getInfo(response.data.response.groups[0].items,"results",photosArray)
 });
 
 
   };
 
   getPhotoURL(venues){
-    let photosArray = {
-      1:"",
-      2:"",
-      3:""
-    }
+
     Object.keys(venues).map(idx => {
       console.log(venues[idx].venue.id);
     let  url = 'https://api.foursquare.com/v2/venues/'+venues[idx].venue.id+'/photos'
@@ -99,15 +101,19 @@ this.props.getInfo(response.data.response.groups[0].items,"results")
     //let body = JSON.parse(response)
   //console.log("photo response",response.data.response.photos.items[0]);
   const URL = response.data.response.photos.items[0].prefix+'200x200'+response.data.response.photos.items[0].suffix
+  URL.replace(/['"]+/g, '')
   var element = {}
   element.id = idx;
+  let idxString = idx.toString()
 element.url = URL;
-  photosArray[idx] = element
+  photosArray[idxString] = URL
   //console.log(URL);
   });
 }
 )
- return photosArray
+//this.setState({photosArray:tempPhotosArray})
+//console.log("inside the child",this.state.photosArray);
+
 
   }
 
