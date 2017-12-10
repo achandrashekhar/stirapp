@@ -105,7 +105,7 @@ let res = axios.all(ops).then(axios.spread((...args) => {
 
   };
 
-  
+
 
 
 
