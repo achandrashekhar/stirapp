@@ -4,13 +4,11 @@ import './App.css';
 import SearchBar from './SearchBar';
 var location = [];
 var request = require("request");
-'use strict';
-var Q = require('q');
-var defer = Q.defer();
-var promise = defer.promise;
 const axios = require("axios");
-var rp = require('request-promise');
-let anArrayOfPhotos = []
+
+let photosArray = {
+
+}
 
 /*
 This component makes all the necessary GET requests to Google and FourSquare
@@ -71,40 +69,52 @@ This function makes a GET request to the foursquare API and gets a list of sugge
     ll: location,
     query: activity,
     v: '20170801',
-    limit: 3
+    limit: 10
 
 }
 }).then(response => {
   //let body = JSON.parse(response)
 console.log(response.data.response.groups[0].items);
-//let r = this.testFunc(response.data.response.groups[0].items)
-//console.log(r);
-this.props.getInfo(this,response.data.response.groups[0].items,"results")
+//let r = this.getSomeResult(response.data.response.groups[0].items)
+//console.log("I am",r);
+let venues = response.data.response.groups[0].items
+const ops = [];
+let resu = []
+for (let page = 0; page < 10; page += 1) {
+  let  url = 'https://api.foursquare.com/v2/venues/'+venues[page].venue.id+'/photos'
+  let op = axios.get(url,{
+params:{
+  client_id: 'NJO25SYKFJCONZVDEUEWJHOCVY0KSDQPIAOWK4P1E3TQ1NQF',
+  client_secret: 'RHVV3XPZTUJYL10U54Y2LJK532T52GDZKP3X3NHDDI2V0PBR',
+  v: '20170801',
+  limit: 1,
+  offset:1
+}
+})
+  ops.push(op);
+}
 
-//console.log(photosArray);
+let res = axios.all(ops).then(axios.spread((...args) => {
+    this.props.getInfo(response.data.response.groups[0].items,"results",args)
+})).then()
+
+
 
 });
 
 
   };
 
-
-testFunc(venues){
-
-}
-
-
-
   getPhotoURL(venues){
-    //let photosArray={}
+
     Object.keys(venues).map(idx => {
       console.log(venues[idx].venue.id);
     let  url = 'https://api.foursquare.com/v2/venues/'+venues[idx].venue.id+'/photos'
     console.log(url);
       axios.get(url,{
     params:{
-      client_id: '4T52ZARTODYF2J2RYTUSQVW1JJFHN34QVLO4HPSGMPK5JZJ5',
-      client_secret: '2CF5V24SFHMAF5Q3B2VCWAZ4TLZJ5GQGAVZDKYKQL0LK21MN',
+      client_id: 'NJO25SYKFJCONZVDEUEWJHOCVY0KSDQPIAOWK4P1E3TQ1NQF',
+      client_secret: 'RHVV3XPZTUJYL10U54Y2LJK532T52GDZKP3X3NHDDI2V0PBR',
       v: '20170801',
       limit: 1,
       offset:1
@@ -113,20 +123,62 @@ testFunc(venues){
     //let body = JSON.parse(response)
   //console.log("photo response",response.data.response.photos.items[0]);
   const URL = response.data.response.photos.items[0].prefix+'200x200'+response.data.response.photos.items[0].suffix
-//  URL.replace(/['"]+/g, '')
+  URL.replace(/['"]+/g, '')
   var element = {}
   element.id = idx;
   let idxString = idx.toString()
 element.url = URL;
-  anArrayOfPhotos.push(element)
-  //photosArray[idx] = element
+  photosArray[idxString] = URL
   //console.log(URL);
-  this.props.getInfo(venues,"results",anArrayOfPhotos,response)
   });
 }
 )
 //this.setState({photosArray:tempPhotosArray})
 //console.log("inside the child",this.state.photosArray);
+
+
+  }
+
+  getSomeResult(venues){
+    // Requests will be executed in parallel...
+    const ops = [];
+    let resu = {}
+    for (let page = 0; page < 10; page += 1) {
+      let  url = 'https://api.foursquare.com/v2/venues/'+venues[page].venue.id+'/photos'
+      let op = axios.get(url,{
+    params:{
+      client_id: 'NJO25SYKFJCONZVDEUEWJHOCVY0KSDQPIAOWK4P1E3TQ1NQF',
+      client_secret: 'RHVV3XPZTUJYL10U54Y2LJK532T52GDZKP3X3NHDDI2V0PBR',
+      v: '20170801',
+      limit: 1,
+      offset:1
+  }
+  })
+      ops.push(op);
+    }
+
+    let res = axios.all(ops).then(axios.spread((...args) => {
+        for (let i = 0; i < args.length; i++) {
+            //console.log("is this",args[i].data);
+            resu[i] = args[i].data;
+            //resu.push(args[i].data)
+        }
+    })).then(function(){return resu})
+// .then(axios.spread(function (res1,res2,res3,res4,res5,res6,res7,res8,res9,res10) {
+//     //... but this callback will be executed only when both requests are complete.
+//     resu.push(res1)
+//     resu.push(res2)
+//     resu.push(res3)
+//     resu.push(res4)
+//     resu.push(res5)
+//     resu.push(res6)
+//     resu.push(res7)
+//     resu.push(res8)
+//     resu.push(res9)
+//     resu.push(res10)
+//
+//
+//   }));
 
   }
 
