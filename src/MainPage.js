@@ -4,11 +4,13 @@ import './App.css';
 import SearchBar from './SearchBar';
 var location = [];
 var request = require("request");
+'use strict';
+var Q = require('q');
+var defer = Q.defer();
+var promise = defer.promise;
 const axios = require("axios");
-
-let photosArray = {
-
-}
+var rp = require('request-promise');
+let anArrayOfPhotos = []
 
 /*
 This component makes all the necessary GET requests to Google and FourSquare
@@ -69,30 +71,40 @@ This function makes a GET request to the foursquare API and gets a list of sugge
     ll: location,
     query: activity,
     v: '20170801',
-    limit: 10
+    limit: 3
 
 }
 }).then(response => {
   //let body = JSON.parse(response)
 console.log(response.data.response.groups[0].items);
-this.getPhotoURL(response.data.response.groups[0].items)
+//let r = this.testFunc(response.data.response.groups[0].items)
+//console.log(r);
+this.props.getInfo(this,response.data.response.groups[0].items,"results")
+
 //console.log(photosArray);
-this.props.getInfo(response.data.response.groups[0].items,"results",photosArray)
+
 });
 
 
   };
 
-  getPhotoURL(venues){
 
+testFunc(venues){
+
+}
+
+
+
+  getPhotoURL(venues){
+    //let photosArray={}
     Object.keys(venues).map(idx => {
       console.log(venues[idx].venue.id);
     let  url = 'https://api.foursquare.com/v2/venues/'+venues[idx].venue.id+'/photos'
     console.log(url);
       axios.get(url,{
     params:{
-      client_id: 'NJO25SYKFJCONZVDEUEWJHOCVY0KSDQPIAOWK4P1E3TQ1NQF',
-      client_secret: 'RHVV3XPZTUJYL10U54Y2LJK532T52GDZKP3X3NHDDI2V0PBR',
+      client_id: '4T52ZARTODYF2J2RYTUSQVW1JJFHN34QVLO4HPSGMPK5JZJ5',
+      client_secret: '2CF5V24SFHMAF5Q3B2VCWAZ4TLZJ5GQGAVZDKYKQL0LK21MN',
       v: '20170801',
       limit: 1,
       offset:1
@@ -101,19 +113,20 @@ this.props.getInfo(response.data.response.groups[0].items,"results",photosArray)
     //let body = JSON.parse(response)
   //console.log("photo response",response.data.response.photos.items[0]);
   const URL = response.data.response.photos.items[0].prefix+'200x200'+response.data.response.photos.items[0].suffix
-  URL.replace(/['"]+/g, '')
+//  URL.replace(/['"]+/g, '')
   var element = {}
   element.id = idx;
   let idxString = idx.toString()
 element.url = URL;
-  photosArray[idxString] = URL
+  anArrayOfPhotos.push(element)
+  //photosArray[idx] = element
   //console.log(URL);
+  this.props.getInfo(venues,"results",anArrayOfPhotos,response)
   });
 }
 )
 //this.setState({photosArray:tempPhotosArray})
 //console.log("inside the child",this.state.photosArray);
-
 
   }
 
