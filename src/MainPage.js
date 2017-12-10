@@ -75,9 +75,31 @@ This function makes a GET request to the foursquare API and gets a list of sugge
 }).then(response => {
   //let body = JSON.parse(response)
 console.log(response.data.response.groups[0].items);
-this.getPhotoURL(response.data.response.groups[0].items)
-//console.log(photosArray);
-this.props.getInfo(response.data.response.groups[0].items,"results",photosArray)
+//let r = this.getSomeResult(response.data.response.groups[0].items)
+//console.log("I am",r);
+let venues = response.data.response.groups[0].items
+const ops = [];
+let resu = []
+for (let page = 0; page < 10; page += 1) {
+  let  url = 'https://api.foursquare.com/v2/venues/'+venues[page].venue.id+'/photos'
+  let op = axios.get(url,{
+params:{
+  client_id: 'NJO25SYKFJCONZVDEUEWJHOCVY0KSDQPIAOWK4P1E3TQ1NQF',
+  client_secret: 'RHVV3XPZTUJYL10U54Y2LJK532T52GDZKP3X3NHDDI2V0PBR',
+  v: '20170801',
+  limit: 1,
+  offset:1
+}
+})
+  ops.push(op);
+}
+
+let res = axios.all(ops).then(axios.spread((...args) => {
+    this.props.getInfo(response.data.response.groups[0].items,"results",args)
+})).then()
+
+
+
 });
 
 
@@ -114,6 +136,49 @@ element.url = URL;
 //this.setState({photosArray:tempPhotosArray})
 //console.log("inside the child",this.state.photosArray);
 
+
+  }
+
+  getSomeResult(venues){
+    // Requests will be executed in parallel...
+    const ops = [];
+    let resu = {}
+    for (let page = 0; page < 10; page += 1) {
+      let  url = 'https://api.foursquare.com/v2/venues/'+venues[page].venue.id+'/photos'
+      let op = axios.get(url,{
+    params:{
+      client_id: 'NJO25SYKFJCONZVDEUEWJHOCVY0KSDQPIAOWK4P1E3TQ1NQF',
+      client_secret: 'RHVV3XPZTUJYL10U54Y2LJK532T52GDZKP3X3NHDDI2V0PBR',
+      v: '20170801',
+      limit: 1,
+      offset:1
+  }
+  })
+      ops.push(op);
+    }
+
+    let res = axios.all(ops).then(axios.spread((...args) => {
+        for (let i = 0; i < args.length; i++) {
+            //console.log("is this",args[i].data);
+            resu[i] = args[i].data;
+            //resu.push(args[i].data)
+        }
+    })).then(function(){return resu})
+// .then(axios.spread(function (res1,res2,res3,res4,res5,res6,res7,res8,res9,res10) {
+//     //... but this callback will be executed only when both requests are complete.
+//     resu.push(res1)
+//     resu.push(res2)
+//     resu.push(res3)
+//     resu.push(res4)
+//     resu.push(res5)
+//     resu.push(res6)
+//     resu.push(res7)
+//     resu.push(res8)
+//     resu.push(res9)
+//     resu.push(res10)
+//
+//
+//   }));
 
   }
 

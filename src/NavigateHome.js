@@ -21,7 +21,7 @@ class NavigateHome extends Component {
   }
   render(){
     return(
-      <button type="button" className="btn btn-primary" onClick={this.nav.bind(this)}>Back Home</button>
+      <button type="button" className="btn btn-primary back" onClick={this.nav.bind(this)}>Back Home</button>
     )
   }
 }

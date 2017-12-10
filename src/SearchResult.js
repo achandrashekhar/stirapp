@@ -17,7 +17,7 @@ class SearchResult extends Component {
   }
 
   componentDidMount(){
-    console.log("got this from parent",this.props.photo);
+
     //photo = this.props.photosArray
     //<a href="#" className="btn btn-primary">Button</a>
 
@@ -40,6 +40,15 @@ class SearchResult extends Component {
     else return ""
   }
 
+  getPhoto(idx){
+  //  console.log("this is",this.props.photo);
+//    let URL=this.props.photo[idx]
+if(this.props.photo[idx].data.response.photos.items[0]!=undefined){
+let URL =this.props.photo[idx].data.response.photos.items[0].prefix+'200x200'+this.props.photo[idx].data.response.photos.items[0].suffix
+return URL
+}
+  }
+
   render(){
     return(
 
@@ -48,12 +57,14 @@ class SearchResult extends Component {
           return(
             <div className="card w-75">
               <div className="card-block">
-               <img className="card-img-top" src={this.props.photo[idx.toString()]} alt={this.props.photo[idx]}/>
+               <img className="card-img-top" src={this.getPhoto(idx)} alt={"IMG N/A"}/>
+               <center>
               <h3 className="card-title">{this.props.venue[idx].venue.name}</h3>
               <p className="card-text">Address: {this.props.venue[idx].venue.location.address}</p>
               <p className="card-text">{this.getHours(idx)}</p>
               <p className="card-text"><small class="text-muted">{this.getMenu(this.props.venue[idx])}</small></p>
               <p className="card-text"><small class="text-muted"><a href={this.props.venue[idx].venue.url}>Website</a></small></p>
+              </center>
             </div>
           </div>
           )

@@ -49,9 +49,22 @@
 }
 
 .btn {
-  background-color: #ad1b42;
+background-color: #1179a9;
+border-color: #4CAF50;
 }
 
 .card {
   color:yellowgreen;
+  border-color:  #17a2b8
+}
+
+.back{
+  background-color: #1179a9;
+  border-color: #4CAF50;
+  margin-top: 2%;
+  margin-left:45%;
+}
+
+.card-title{
+  color: #0f09b0;
 }
