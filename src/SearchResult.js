@@ -43,8 +43,10 @@ class SearchResult extends Component {
   getPhoto(idx){
   //  console.log("this is",this.props.photo);
 //    let URL=this.props.photo[idx]
+if(this.props.photo[idx].data.response.photos.items[0]!=undefined){
 let URL =this.props.photo[idx].data.response.photos.items[0].prefix+'200x200'+this.props.photo[idx].data.response.photos.items[0].suffix
 return URL
+}
   }
 
   render(){
@@ -55,7 +57,7 @@ return URL
           return(
             <div className="card w-75">
               <div className="card-block">
-               <img className="card-img-top" src={this.getPhoto(idx)} alt={"hmm"}/>
+               <img className="card-img-top" src={this.getPhoto(idx)} alt={"IMG N/A"}/>
                <center>
               <h3 className="card-title">{this.props.venue[idx].venue.name}</h3>
               <p className="card-text">Address: {this.props.venue[idx].venue.location.address}</p>
