@@ -33,15 +33,16 @@
 
 .btn {
   margin-bottom: 0.8em;
+  height: 2em;
 }
 
 .form-control{
-  height: 2.5em;
-  width: 5em;
+  height: 2em;
+  /*width: em;*/
 }
 
 .intro{
-  right:10%;
+  right:8%;
   font-family: fantasy;
   font-size: 1.5rem;
   justify-content:space-around;
