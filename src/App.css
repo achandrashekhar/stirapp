@@ -75,4 +75,9 @@ border-color: #4CAF50;
   left:45%;
   padding: 1rem;
   text-align: center;
+  font-size: 0.9em;
+}
+
+.links{
+  font-size: 0.9em;
 }
