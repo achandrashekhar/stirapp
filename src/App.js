@@ -44,7 +44,6 @@ this.setState({screenName:results,venues:info,photos:photosArray})
         <p>    try typing in "coffee" or "burger" </p>
         </div>
         <MainPage getInfo = {this.callFunc.bind(this)} loca= {""}/>
-
       </div>
       );
     } else return(

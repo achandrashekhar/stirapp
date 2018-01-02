@@ -126,6 +126,7 @@ let res = axios.all(ops).then(axios.spread((...args) => {
       <div>
 
         <SearchBar handleClick = {this.setPlace.bind(this)}/>
+          <div className = "footer">Made with ☕️ and ❤️ </div>
 
       </div>
     );

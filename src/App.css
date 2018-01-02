@@ -68,3 +68,11 @@ border-color: #4CAF50;
 .card-title{
   color: #0f09b0;
 }
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  left:45%;
+  padding: 1rem;
+  text-align: center;
+}
