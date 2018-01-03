@@ -131,7 +131,7 @@ let res = axios.all(ops).then(axios.spread((...args) => {
           <div className="links">
           <p>Stalk me <a href="https://www.linkedin.com/in/aishwarya-chandrashekhar-4342b48b/"> LinkedIn</a>
           <a href="https://www.quora.com/profile/Aishwarya-Chandrashekhar">   Quora</a>
-          <a href="cashenash.wordpress.com">   Blog</a>
+          <a href="https://cashenash.wordpress.com/about/">   Blog</a>
           </p>
           </div>
           </div>
