@@ -83,7 +83,7 @@ border-color: #4CAF50;
   font-size: 0.9em;
 }
 
-@media (max-width:800px){
+/* @media (max-width:800px){
   .w-75 {
       width: 50%!important;
       padding: 1em;
@@ -97,4 +97,4 @@ border-color: #4CAF50;
       padding: 1em;
 
   }
-}
+} */
